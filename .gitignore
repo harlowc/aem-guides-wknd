@@ -81,3 +81,6 @@ buildNumber.properties
 ### Visual Studio ###
 .vscode
 .history
+
+###repo ###
+.repo
