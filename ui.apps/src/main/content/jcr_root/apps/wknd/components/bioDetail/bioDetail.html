@@ -1,13 +1,18 @@
-<!--/* byline.html */-->
-<div data-sly-use.bioDetail="com.adobe.aem.guides.wknd.core.models.BioDetail"
-     data-sly-use.placeholderTemplate="core/wcm/components/commons/v1/templates.html"
-     data-sly-test.hasContent="${!bioDetail.empty}"
-     class="cmp-bioDetail">
-    <div class="cmp-bioDetail__image"
-         data-sly-resource="${ '.' @ resourceType = 'core/wcm/components/image/v2/image' }">
+<!--/* bioDetail.html */-->
+<sly data-sly-use.templates="core/wcm/components/commons/v1/templates.html" data-sly-use.bioDetailModel="com.adobe.aem.guides.wknd.core.models.BioDetailModel" >
+<sly data-sly-call="${templates.placeholder @ isEmpty = !iconModel.IsEmpty}"></sly>
+<sly data-sly-test.bioDetailInfo="${bioDetailModel.bioInfo}">
+<div class="cmp-bioDetail">
+
+    <div class="cmp-bioDetail__image">
+             <img class="cmp-bioDetail__img" src="${bioDetailInfo.pageThumbnail}" alt="bio Image"/>
     </div>
-    <h2 class="cmp-bioDetail__name">${bioDetail.name}</h2>
-    <p class="cmp-bioDetail__description">${bioDetail.description}</p>
-    <p class="cmp-bioDetail__specializations">${bioDetail.specializations @ join=', '}</p>
+
+    <h2 class="cmp-bioDetail__name">${bioDetailInfo.bioName}</h2>
+    <p class="cmp-bioDetail__description">${bioDetailInfo.description}</p>
+    <p class="cmp-bioDetail__details">Role: ${bioDetailInfo.role}</p>
+    <p class="cmp-bioDetail__details">Email: ${bioDetailInfo.bioEmail}</p>
+    <p class="cmp-bioDetail__details">Office Phone Number: ${bioDetailInfo.officePhone}</p>
+    <p class="cmp-bioDetail__details">Cell Phone Number : ${bioDetailInfo.cellPhone}</p>
+    <p class="cmp-bioDetail__specializations">${bioDetailInfo.specializations @ join=', '}</p>
 </div>
-<sly data-sly-call="${placeholderTemplate.placeholder @ isEmpty=!hasContent}"></sly>

@@ -11,7 +11,7 @@
                 <account
                     cq:showOnCreate="{Boolean}true"
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="Banker Params"
+                    jcr:title="Bio Params"
                     sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
                     <items jcr:primaryType="nt:unstructured">
                         <name
@@ -62,26 +62,26 @@
                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                             fieldLabel="Cell Phone"
                             name="./cellPhone"/>
-                            <description
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
-                                                emptyText="Enter some information to display."
-                                                fieldDescription="Information about the individual"
-                                                fieldLabel="Description"
-                                                name="./description"
-                                                required="{Boolean}true"/>
-                                            <specializations
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
-                                                fieldDescription="A list of the contributor's Specializations."
-                                                fieldLabel="Specializations"
-                                                required="{Boolean}false">
-                                                <field
-                                                    jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                    emptyText="Enter a Specialization"
-                                                    name="./specializations"/>
-                                            </specializations>
+                        <description
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                            emptyText="Enter some information to display."
+                            fieldDescription="Information about the individual"
+                            fieldLabel="Description"
+                            name="./description"
+                            required="{Boolean}true"/>
+                        <specializations
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                            fieldDescription="A list of the contributor's Specializations."
+                            fieldLabel="Specializations"
+                            required="{Boolean}false">
+                                <field
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                emptyText="Enter a Specialization"
+                                name="./specializations"/>
+                        </specializations>
                     </items>
                 </account>
             </items>
