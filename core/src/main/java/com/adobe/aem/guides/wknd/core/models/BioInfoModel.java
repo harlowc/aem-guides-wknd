@@ -2,7 +2,6 @@ package com.adobe.aem.guides.wknd.core.models;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,21 +9,15 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.ChildResource;
-import org.apache.sling.models.annotations.injectorspecific.SlingObject;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
 /**
- * BioInfoModel adapts JCR property of bioDetailPage
+ * BioInfoModel adapts to the JCR properties of bioDetailPage IE Pulls all page properties in the bio tab and returns the information to be populated to the bio page.
+ * 
  *  * @author charlow
  *
  */
@@ -35,7 +28,6 @@ public class BioInfoModel {
 
   //Constants
   private static final String HTML_EXTENSION = ".html";
-  private static final String COMMA_AND_SPACE = ", ";
   private static final String EMPTY_SPACE = " ";
   private static final String S_STRING = "s";
   private static final String APOSTROHE = "'";
@@ -49,16 +41,14 @@ public class BioInfoModel {
   private static final String EMAIL = "email";
   private static final String OFFICE_PHONE = "officePhone";
   private static final String CELL_PHONE = "cellPhone";
-  private static final String BANKER_PAGE_THUMBNAIL = "image/fileReference";
+  private static final String BIO_PAGE_THUMBNAIL = "image/fileReference";
   
   //Default thumbnail path
+  //TODO: research clientlibs, is this in the JCR, should we use a JCR link to make sure it is always availble
   private static final String DEFAULT_THUMBNAIL_MALE = "/etc.clientlibs/wknd/clientlibs/clientlib-base/resources/images/profilePicM.jpg";
   private static final String DEFAULT_THUMBNAIL_FEMALE = "/etc.clientlibs/wknd/clientlibs/clientlib-base/resources/images/profilePicF.jpg";
 
-
-  @SlingObject
-  private transient ResourceResolver resourceResolver;
-
+  //ValueMapValue injects information into the java variable to be used later, in this case from the page properties
   @ValueMapValue(name = NAME)
   private String bioName;
   
@@ -78,7 +68,7 @@ public class BioInfoModel {
   @ValueMapValue(name = CELL_PHONE)
   private String cellPhone;
 
-  @ValueMapValue(name = BANKER_PAGE_THUMBNAIL)
+  @ValueMapValue(name = BIO_PAGE_THUMBNAIL)
   private String pageThumbnail;
 
   @ValueMapValue(name = SPECIALIZATIONS)
@@ -91,6 +81,8 @@ public class BioInfoModel {
   private String pagePath;
   private String firstName;
   
+
+  //runs after the constructor, allowing manipulation of the injected data.
   @PostConstruct
   protected void init() {
 	  
@@ -109,20 +101,7 @@ public class BioInfoModel {
     }
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    BioInfoModel infoModel = (BioInfoModel) o;
-
-    return bioName.equals(infoModel.bioName) && role.equals(infoModel.role) && bioEmail.equals(infoModel.bioEmail);
-  } 
-
+  /// set and get methods
 
   public void setPath(String path){
     this.pagePath = path + HTML_EXTENSION;
@@ -173,6 +152,7 @@ public class BioInfoModel {
 		return this.cellPhone;
   }
   
+  //returns alphabetical list of specializations
   public List<String> getSpecializations() {
     if(specializations !=null){
         Collections.sort(specializations);
@@ -181,18 +161,8 @@ public class BioInfoModel {
         return Collections.emptyList();
     }
  }
-  
-
-
-
-  @Override
-  public int hashCode() {
-    int hash = 7;
-    hash = 17 * hash + (this.bioName != null ? this.bioName.hashCode() : 0) + (this.role != null ? this.role.hashCode() : 0);
-
-    return hash;
-  }
-
+  //toString override to possibly use in logging 
+  //TODO : verify all information is here, is not necessary for current function.
  	@Override
 	public String toString() {
 			return "{\"bioName\":\"" + bioName + "\",\"bioEmail\":\"" + bioEmail + "\",\"officePhone\":\"" + officePhone + "\",\"cellPhone\":\"" + cellPhone 

@@ -21,15 +21,16 @@ import com.day.cq.wcm.api.Page;
 public class BioDetailModel {
     
 	@ScriptVariable
-    private Page currentPage;
-    private BioInfoModel bioInfo;
-      
-      @PostConstruct
-    protected void init() {
-      bioInfo = currentPage.getContentResource().adaptTo(BioInfoModel.class);
-      }
+  private Page currentPage;
   
-      public BioInfoModel getBioInfo() {
-          return bioInfo;
-      }
+  private BioInfoModel bioInfo;
+      
+  @PostConstruct
+  protected void init() {
+    bioInfo = currentPage.getContentResource().adaptTo(BioInfoModel.class);
+  }
+  
+  public BioInfoModel getBioInfo() {
+    return bioInfo;
+  }
 }
